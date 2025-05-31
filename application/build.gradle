@@ -1,0 +1,17 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+group = 'tech.wbrq.catalogo.application'
+
+dependencies {
+    implementation(project(":domain"))
+
+    implementation('org.yaml:snakeyaml:2.3') {
+        version {strictly('2.3')}
+    }
+
+    testImplementation(project(path: ':domain', configuration: 'testClasses'))
+
+}
