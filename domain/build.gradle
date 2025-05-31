@@ -6,9 +6,7 @@ plugins {
 group = 'tech.wbrq.catalogo.domain'
 
 dependencies {
-    testImplementation('com.github.javafaker:javafaker:1.0.2') {
-        exclude(module: 'snakeyaml')
-    }
+    testImplementation 'net.datafaker:datafaker:2.4.3'
 }
 
 configurations {
