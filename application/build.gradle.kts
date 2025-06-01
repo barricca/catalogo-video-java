@@ -1,12 +1,12 @@
-//plugins {
-//    `java-conventions`
-//    `java-library`
-//}
-//
-//group = 'tech.wbrq.catalogo.application'
-//
-//dependencies {
-//    implementation(project(":domain"))
-//
-//    testImplementation(project(path: ':domain', configuration: 'testClasses'))
-//}
+plugins {
+    `java-conventions`
+    `java-library`
+}
+
+group = "tech.wbrq.catalogo.application"
+
+dependencies {
+    implementation(project(":domain"))
+
+    testImplementation(project(":domain", configuration = "testClasses"))
+}

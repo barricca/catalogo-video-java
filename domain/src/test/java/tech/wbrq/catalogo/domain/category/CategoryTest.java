@@ -9,7 +9,8 @@ import tech.wbrq.catalogo.domain.utils.IdUtils;
 import tech.wbrq.catalogo.domain.utils.InstantUtils;
 import tech.wbrq.catalogo.domain.validation.handler.ThrowsValidationHandler;
 
-class CategoryTest extends UnitTest {
+@UnitTest
+class CategoryTest {
 
     @Test
     void givenAValidParams_whenCallWith_thenInstantiateACategory() {
