@@ -28,12 +28,21 @@ jacoco {
     toolVersion = "0.8.13"
 }
 
-tasks.named<Test>("test") {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+
+    doFirst {
+        jvmArgs = listOf(
+            "-Xshare:off",  // Desativa o Class Data Sharing
+            "-javaagent:${classpath.find { it.name.contains("byte-buddy-agent") }?.absolutePath}"
+        )
+    }
+
     testLogging {
         events("passed", "skipped", "failed")
     }
 }
+
 
 tasks.register<Test>("unitTests") {
     group = "verification"
