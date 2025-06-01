@@ -1,6 +1,9 @@
 package tech.wbrq.catalogo.domain;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
+import tech.wbrq.catalogo.domain.category.Category;
+import tech.wbrq.catalogo.domain.utils.IdUtils;
+import tech.wbrq.catalogo.domain.utils.InstantUtils;
 
 public final class Fixture {
 
@@ -32,5 +35,32 @@ public final class Fixture {
 
     public static String checksum() {
         return "03fe62de";
+    }
+
+    public static final class Categories {
+
+        public static Category aulas() {
+            return Category.with(
+                    IdUtils.uuid(),
+                    "Aulas",
+                    "Aulas de programação e tecnologia - gravadas",
+                    true,
+                    InstantUtils.now(),
+                    InstantUtils.now(),
+                    null
+            );
+        }
+
+        public static Category lives() {
+            return Category.with(
+                    IdUtils.uuid(),
+                    "Lives",
+                    "Aulas de programação e tecnologia - ao vivo",
+                    true,
+                    InstantUtils.now(),
+                    InstantUtils.now(),
+                    null
+            );
+        }
     }
 }
