@@ -44,6 +44,22 @@ public class SaveCategoryUseCaseTest {
     }
 
     @Test
+    void givenInvalidNullCategory_whenCallsSave_shouldReturnError() {
+        // Given
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "'aCategory' cannot be null";
+
+        // When
+        final var actualError = assertThrows(DomainException.class, () -> this.useCase.execute(null));
+
+        // Then
+        assertEquals(expectedErrorCount, actualError.getErrors().size());
+        assertEquals(expectedErrorMessage, actualError.getErrors().getFirst().message());
+
+        verify(categoryGateway, times(0)).save(any());
+    }
+
+    @Test
     void givenInvalidName_whenCallsSave_shouldReturnError() {
         // Given
         final var expectedErrorCount = 1;
