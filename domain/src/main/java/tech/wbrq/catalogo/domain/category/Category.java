@@ -1,5 +1,8 @@
 package tech.wbrq.catalogo.domain.category;
 
+import tech.wbrq.catalogo.domain.validation.Error;
+import tech.wbrq.catalogo.domain.validation.ValidationHandler;
+
 import java.time.Instant;
 
 public record Category(
@@ -42,5 +45,15 @@ public record Category(
                 aCategory.updatedAt,
                 aCategory.deletedAt
         );
+    }
+
+    public Category validate(final ValidationHandler aHandler) {
+        if (id == null || id.isBlank()) {
+            aHandler.append(new Error("'id' should not be empty"));
+        }
+        if (name == null || name.isBlank()) {
+            aHandler.append(new Error("'name' should not be empty"));
+        }
+        return this;
     }
 }
