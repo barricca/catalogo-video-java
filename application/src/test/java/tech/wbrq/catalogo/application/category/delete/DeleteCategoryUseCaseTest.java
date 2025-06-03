@@ -9,6 +9,7 @@ import tech.wbrq.catalogo.domain.Fixture;
 import tech.wbrq.catalogo.domain.category.CategoryGateway;
 
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -28,12 +29,24 @@ public class DeleteCategoryUseCaseTest {
         final var expectedId = aulas.id();
 
         doNothing()
-            .when(this.categoryGateway).deleteById(expectedId);
+                .when(this.categoryGateway).deleteById(expectedId);
 
         // When
         Assertions.assertDoesNotThrow(() -> this.useCase.execute(expectedId));
 
         // Then
         verify(this.categoryGateway, times(1)).deleteById(expectedId);
+    }
+
+    @Test
+    void givenAnInvalidId_whenCallsDeleteCategory_shouldBeOk() {
+        // Given
+        final String expectedId = null;
+
+        // When
+        Assertions.assertDoesNotThrow(() -> this.useCase.execute(expectedId));
+
+        // Then
+        verify(this.categoryGateway, never()).deleteById(expectedId);
     }
 }
