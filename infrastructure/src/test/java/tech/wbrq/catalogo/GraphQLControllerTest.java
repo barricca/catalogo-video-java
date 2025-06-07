@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.junit.jupiter.api.Tag;
+import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
@@ -18,11 +19,11 @@ import tech.wbrq.catalogo.infrastructure.configuration.ObjectMapperConfig;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @ActiveProfiles("test-integration")
-@WebMvcTest
+@GraphQlTest
 @Import(ObjectMapperConfig.class)
 @Tag("integrationTest")
-public @interface ControllerTest {
+public @interface GraphQLControllerTest {
 
-    @AliasFor(annotation = WebMvcTest.class, attribute = "controllers")
+    @AliasFor(annotation = GraphQlTest.class, attribute = "controllers")
     Class<?>[] controllers() default {};
 }
