@@ -1,7 +1,8 @@
 package tech.wbrq.catalogo;
 
 import org.junit.jupiter.api.Tag;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.lang.annotation.ElementType;
@@ -14,7 +15,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @ActiveProfiles("test-integration")
-@JsonTest
+@WebMvcTest
 @Tag("integrationTest")
-public @interface JacksonTest {
+public @interface ControllerTest {
+
+    @AliasFor(annotation = WebMvcTest.class, attribute = "controllers")
+    Class<?>[] controllers() default {};
 }

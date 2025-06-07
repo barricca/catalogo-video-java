@@ -1,11 +1,11 @@
 package tech.wbrq.catalogo.infrastructure.configuration;
 
-import tech.wbrq.catalogo.infrastructure.configuration.json.Json;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import tech.wbrq.catalogo.infrastructure.configuration.json.Json;
 
-@Configuration
+@JsonComponent
 public class ObjectMapperConfig {
 
     @Bean

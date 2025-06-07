@@ -20,7 +20,6 @@ import tech.wbrq.catalogo.infrastructure.configuration.ObjectMapperConfig;
 @Inherited
 @ActiveProfiles("test-integration")
 @GraphQlTest
-@Import(ObjectMapperConfig.class)
 @Tag("integrationTest")
 public @interface GraphQLControllerTest {
 

@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@GraphQLControllerTest
+@GraphQLControllerTest(controllers = CategoryGraphQLController.class)
 public class CategoryGraphQLControllerTest {
 
     @MockitoBean
@@ -99,16 +99,22 @@ public class CategoryGraphQLControllerTest {
         );
 
         final var query = """
-                {
-                    categories(search: "%s", page: %d, perPage: %d, sort: "%s", direction: "%s") {
+                query AlLCategories($search: String, $page: Int, $perPage: Int, $sort: String, $direction: String) {
+                    categories(search: $search, page: $page, perPage: $perPage, sort: $sort, direction: $direction) {
                         id,
                         name
                     }
                 }
-                """.formatted(expectedSearch, expectedPage, expectedPerPage, expectedSort, expectedDirection);
+                """;
 
         // When
-        final var response = this.graphql.document(query).execute();
+        final var response = this.graphql.document(query)
+                .variable("search", expectedSearch)
+                .variable("page", expectedPage)
+                .variable("perPage", expectedPerPage)
+                .variable("sort", expectedSort)
+                .variable("direction", expectedDirection)
+                .execute();
 
         final var actualCategories = response.path("categories")
                 .entityList(ListCategoryOutput.class)
