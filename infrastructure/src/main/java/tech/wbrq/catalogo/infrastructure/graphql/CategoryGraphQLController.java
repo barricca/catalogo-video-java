@@ -20,8 +20,9 @@ public class CategoryGraphQLController {
     private final ListCategoryUseCase listCategoryUseCase;
     private final SaveCategoryUseCase saveCategoryUseCase;
 
-    public CategoryGraphQLController(final ListCategoryUseCase listCategoryUseCase,
-                                     final SaveCategoryUseCase saveCategoryUseCase
+    public CategoryGraphQLController(
+            final ListCategoryUseCase listCategoryUseCase,
+            final SaveCategoryUseCase saveCategoryUseCase
     ) {
         this.listCategoryUseCase = Objects.requireNonNull(listCategoryUseCase);
         this.saveCategoryUseCase = Objects.requireNonNull(saveCategoryUseCase);
