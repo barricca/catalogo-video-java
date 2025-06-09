@@ -1,6 +1,7 @@
 package tech.wbrq.catalogo.infrastructure.configuration;
 
 import com.nimbusds.jose.shaded.gson.JsonObject;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +19,11 @@ import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,7 +31,7 @@ import java.util.stream.Stream;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
-@Profile("development")
+@Profile("!development")
 public class SecurityConfig {
 
     private static final String ROLE_ADMIN = "CATALOGO_ADMIN";
@@ -34,6 +40,7 @@ public class SecurityConfig {
     private static final String ROLE_GENRES = "CATALOGO_GENRES";
     private static final String ROLE_VIDEOS = "CATALOGO_VIDEOS";
 
+    @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -43,10 +50,13 @@ public class SecurityConfig {
                         .requestMatchers("/genres*").hasAnyRole(ROLE_ADMIN, ROLE_GENRES)
                         .requestMatchers("/videos*").hasAnyRole(ROLE_ADMIN, ROLE_VIDEOS)
                         .anyRequest().hasRole(ROLE_ADMIN))
-                .oauth2ResourceServer(oauth -> oauth.jwt()
-                        .jwtAuthenticationConverter(new KeycloakJwtConverter()))
+                .oauth2ResourceServer(oauth -> oauth.jwt(
+                        jtw -> jtw.jwtAuthenticationConverter(new KeycloakJwtConverter())
+                ))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .headers(headers -> headers.frameOptions().sameOrigin())
+                .headers(headers -> headers.frameOptions(
+                        HeadersConfigurer.FrameOptionsConfig::sameOrigin
+                ))
                 .build();
     }
 
