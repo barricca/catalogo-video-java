@@ -1,6 +1,8 @@
 package tech.wbrq.catalogo;
 
 import org.junit.jupiter.api.Tag;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tech.wbrq.catalogo.infrastructure.configuration.WebServerConfig;
@@ -15,7 +17,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @ActiveProfiles("test-integration")
-@SpringBootTest(classes = WebServerConfig.class)
+@EnableAutoConfiguration(exclude = {
+        ElasticsearchRepositoriesAutoConfiguration.class
+})
+@SpringBootTest(classes = {WebServerConfig.class, IntegrationTestConfiguration.class})
 @Tag("integrationTest")
 public @interface IntegrationTest {
 }

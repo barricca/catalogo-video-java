@@ -28,6 +28,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-graphql")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 
     implementation("com.fasterxml.jackson.module:jackson-module-afterburner")
@@ -40,6 +41,7 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:1.21.1") {
         exclude(module = "commons-compress")
     }
+    testImplementation("org.testcontainers:elasticsearch:1.21.1")
     testImplementation("org.testcontainers:junit-jupiter:1.21.1")
 
     testImplementation("org.apache.commons:commons-compress:1.27.1")
