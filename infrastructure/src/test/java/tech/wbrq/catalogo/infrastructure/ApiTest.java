@@ -1,4 +1,4 @@
-package tech.wbrq.catalogo;
+package tech.wbrq.catalogo.infrastructure;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
