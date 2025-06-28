@@ -2,7 +2,7 @@ plugins {
     `java-conventions`
     `jacoco-report-aggregation`
     application
-    id("org.springframework.boot") version "3.5.0"
+    id("org.springframework.boot") version "3.5.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -34,6 +34,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-afterburner")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers:3.5.2")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.graphql:spring-graphql-test")
 
